@@ -87,15 +87,33 @@ public class TestGestionePoste {
 				.collect(Collectors.toList());
 
 		List<Destinatario> listaDestinatari = listaPosteConDipendentiCompresiTra50E100.stream()
-				.flatMap(listaItem -> listaItem.getDestinatari().stream()).filter(destinatari -> destinatari.isPossessoreDiContoCorrente()).collect(Collectors.toList());
+				.flatMap(listaItem -> listaItem.getDestinatari().stream())
+				.filter(destinatari -> destinatari.isPossessoreDiContoCorrente()).collect(Collectors.toList());
 
 		listaDestinatari.forEach(i -> System.out.println(i.getNome()));
-		
+
 		getDivisorio();
+
+		// la lista delle età dei destinatari delle poste che contengano nel campo
+		// denominazione la stringa ‘Centrale’ e siano state aperta almeno dal primo
+		// gennaio 2000
+		System.out.println(
+				"la lista delle età dei destinatari delle poste che contengano nel campo denominazione la stringa ‘Centrale’ e siano state aperta almeno dal primo gennaio 2000.");
+
+		List<Integer> listaEtaDestinatori = listaPosteDiPaesiMock.stream()
+				.filter(poste -> {
+					try {
+						return poste.getDenominazione().contains("Centrale")
+								&& poste.getDataApertura().after(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2000"));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return false;
+					}
+				})
+				.flatMap(poste -> poste.getDestinatari().stream()).map(destinatari -> destinatari.getEta()).collect(Collectors.toList());
 		
-		
-		
-		
-		
+		listaEtaDestinatori.forEach(i -> System.out.println(i));
+
 	}
 }
