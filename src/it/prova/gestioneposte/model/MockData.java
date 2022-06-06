@@ -12,7 +12,7 @@ public class MockData {
 	static {
 
 		try {
-			PostaDiPaese ufficioPostaleRoma = new PostaDiPaese("Ufficio Postale Roma", "Via Dell'miperatore 136",
+			PostaDiPaese ufficioPostaleRoma = new PostaDiPaese("Ufficio Postale Roma", "Via Dell'Imperatore 136",
 					new SimpleDateFormat("dd/MM/yyyy").parse("04/09/1975"), 50);
 			Destinatario destinatarioMarco = new Destinatario("Marco", "Aprili", 35, "Via della Verita 12", true, ufficioPostaleRoma);
 			ufficioPostaleRoma.getDestinatari().add(destinatarioMarco);
@@ -22,7 +22,7 @@ public class MockData {
 			ufficioPostaleRoma.getDestinatari().add(destinatarioArianna);
 			
 			PostaDiPaese ufficioPostaleNapoli = new PostaDiPaese("Ufficio Postale Napoli", "Via Salari 49",
-					new SimpleDateFormat("dd/MM/yyyy").parse("12/05/1970"), 67);
+					new SimpleDateFormat("dd/MM/yyyy").parse("12/05/1970"), 62);
 			Destinatario destinatarioDanilo = new Destinatario("Danilo", "Meloni", 15, "Via Flavienschi 80", false, ufficioPostaleNapoli);
 			ufficioPostaleNapoli.getDestinatari().add(destinatarioDanilo);
 			Destinatario destinatarioAngela = new Destinatario("Angela", "Feroni", 10, "Via Domitilla 41", false, ufficioPostaleNapoli);
