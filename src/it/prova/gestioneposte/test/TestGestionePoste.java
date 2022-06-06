@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import it.prova.gestioneposte.model.MockData;
 import it.prova.gestioneposte.model.PostaDiPaese;
+import it.prova.gestioneposte.model.Destinatario;
 
 public class TestGestionePoste {
 
@@ -21,7 +22,7 @@ public class TestGestionePoste {
 		List<PostaDiPaese> listaPosteDiPaesiMock = MockData.LISTA_DI_PAESE;
 
 		// Tutte le poste il cui indirizzo contenga “(MI)”
-		System.out.println("tutte le poste il cui indirizzo contenga \"MI\"");
+		System.out.println("Tutte le poste il cui indirizzo contenga \"MI\"");
 		listaPosteDiPaesiMock.forEach(listaItem -> {
 			if (listaItem.getIndirizzoSede().contains("MI")) {
 				System.out.println(listaItem.getDenominazione());
@@ -34,6 +35,7 @@ public class TestGestionePoste {
 
 		// tutte le poste che sono state aperte dopo il primo marzo 2019 (non usate
 		// codice deprecato!!!);
+		System.out.println("Tutte le poste che sono state aperte dopo il primo marzo 2019");
 		listaPosteDiPaesiMock.forEach(listaItem -> {
 			try {
 				if (listaItem.getDataApertura().after(new SimpleDateFormat("dd/MM/yyyy").parse("01/03/2019"))) {
@@ -51,12 +53,30 @@ public class TestGestionePoste {
 
 		// la lista di indirizzi delle poste il cui numero dipendenti sia superiore a
 		// 20;
-		System.out.println("la lista di indirizzi delle poste il cui numero dipendenti sia superiore a 20");
+		System.out.println("La lista di indirizzi delle poste il cui numero dipendenti sia superiore a 20");
 		List<PostaDiPaese> listaPosteConNDipendentiSuperioreA20 = listaPosteDiPaesiMock.stream()
 				.filter(listaItem -> listaItem.getnumeroDipendenti() > 20).collect(Collectors.toList());
-		
+
 		listaPosteConNDipendentiSuperioreA20.forEach(listaItem -> System.out.println(listaItem.getIndirizzoSede()));
 
-	}
+		getDivisorio();
 
+		// la lista di indirizzi di destinatari di poste con almeno 10 dipendenti
+		System.out.println("La lista di indirizzi di destinatari di poste con almeno 10 dipendenti");
+		List<PostaDiPaese> listaPosteConNDipendentiSuperioreA10 = listaPosteDiPaesiMock.stream()
+				.filter(listaItem -> listaItem.getnumeroDipendenti() >= 10).collect(Collectors.toList());
+		
+		List<Destinatario> listaDestinatariDiPosteConDipendentiSuperioriA10 = listaPosteConNDipendentiSuperioreA10
+				.stream().flatMap(listaDestinatariItem -> listaDestinatariItem.getDestinatari().stream())
+				.collect(Collectors.toList());
+		
+		List<String> listaIndirizziDestinatari = listaDestinatariDiPosteConDipendentiSuperioriA10.stream()
+				.map(item -> item.getIndirizzo()).collect(Collectors.toList());
+
+		listaIndirizziDestinatari.forEach(i -> System.out.println(i));
+		
+		getDivisorio();		
+		
+		
+	}
 }

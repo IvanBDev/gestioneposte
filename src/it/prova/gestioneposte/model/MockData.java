@@ -13,7 +13,7 @@ public class MockData {
 
 		try {
 			PostaDiPaese ufficioPostaleRoma = new PostaDiPaese("Ufficio Postale Roma", "Via Dell'Imperatore 136",
-					new SimpleDateFormat("dd/MM/yyyy").parse("04/09/1975"), 50);
+					new SimpleDateFormat("dd/MM/yyyy").parse("04/09/1975"), 9);
 			Destinatario destinatarioMarco = new Destinatario("Marco", "Aprili", 35, "Via della Verita 12", true, ufficioPostaleRoma);
 			ufficioPostaleRoma.getDestinatari().add(destinatarioMarco);
 			Destinatario destinatarioFrancesca = new Destinatario("Francesca", "Molieri", 38, "Via Felice 33", true, ufficioPostaleRoma);
