@@ -29,7 +29,7 @@ public class MockData {
 			ufficioPostaleNapoli.getDestinatari().add(destinatarioAngela);
 			
 			PostaDiPaese ufficioPostaleVenezia = new PostaDiPaese("Ufficio Postale Venezia", "Via Grezzari 71",
-					new SimpleDateFormat("dd/MM/yyyy").parse("01/03/1972"), 80);
+					new SimpleDateFormat("dd/MM/yyyy").parse("01/03/1972"), 88);
 			Destinatario destinatarioMaria = new Destinatario("Maria", "Lenda", 13, "Via Flavienschi 80", false, ufficioPostaleVenezia);
 			ufficioPostaleVenezia.getDestinatari().add(destinatarioMaria);
 			Destinatario destinatarioFlavio = new Destinatario("Flavio", "Girolami", 50, "Via Girandola 15", true, ufficioPostaleVenezia);

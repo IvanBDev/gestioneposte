@@ -65,17 +65,36 @@ public class TestGestionePoste {
 		System.out.println("La lista di indirizzi di destinatari di poste con almeno 10 dipendenti");
 		List<PostaDiPaese> listaPosteConNDipendentiSuperioreA10 = listaPosteDiPaesiMock.stream()
 				.filter(listaItem -> listaItem.getnumeroDipendenti() >= 10).collect(Collectors.toList());
-		
+
 		List<Destinatario> listaDestinatariDiPosteConDipendentiSuperioriA10 = listaPosteConNDipendentiSuperioreA10
 				.stream().flatMap(listaDestinatariItem -> listaDestinatariItem.getDestinatari().stream())
 				.collect(Collectors.toList());
-		
+
 		List<String> listaIndirizziDestinatari = listaDestinatariDiPosteConDipendentiSuperioriA10.stream()
 				.map(item -> item.getIndirizzo()).collect(Collectors.toList());
 
 		listaIndirizziDestinatari.forEach(i -> System.out.println(i));
+
+		getDivisorio();
+
+		// la lista di destinatari possessori di conto corrente ma appartenenti a poste
+		// con numero dipendenti compreso tra 50 e 100
+		System.out.println(
+				"La lista di destinatari possessori di conto corrente ma appartenenti a poste con numero dipendenti compreso tra 50 e 100");
+
+		List<PostaDiPaese> listaPosteConDipendentiCompresiTra50E100 = listaPosteDiPaesiMock.stream()
+				.filter(listaItem -> listaItem.getnumeroDipendenti() >= 50 && listaItem.getnumeroDipendenti() <= 100)
+				.collect(Collectors.toList());
+
+		List<Destinatario> listaDestinatari = listaPosteConDipendentiCompresiTra50E100.stream()
+				.flatMap(listaItem -> listaItem.getDestinatari().stream()).filter(destinatari -> destinatari.isPossessoreDiContoCorrente()).collect(Collectors.toList());
+
+		listaDestinatari.forEach(i -> System.out.println(i.getNome()));
 		
-		getDivisorio();		
+		getDivisorio();
+		
+		
+		
 		
 		
 	}
