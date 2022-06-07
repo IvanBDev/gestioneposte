@@ -66,14 +66,12 @@ public class TestGestionePoste {
 		List<PostaDiPaese> listaPosteConNDipendentiSuperioreA10 = listaPosteDiPaesiMock.stream()
 				.filter(listaItem -> listaItem.getnumeroDipendenti() >= 10).collect(Collectors.toList());
 
-		List<Destinatario> listaDestinatariDiPosteConDipendentiSuperioriA10 = listaPosteConNDipendentiSuperioreA10
-				.stream().flatMap(listaDestinatariItem -> listaDestinatariItem.getDestinatari().stream())
+		List<String> listaDestinatariDiPosteConDipendentiSuperioriA10 = listaPosteConNDipendentiSuperioreA10
+				.stream().flatMap(listaDestinatariItem -> listaDestinatariItem.getDestinatari().stream()
+						.map(listaIndirizzi -> listaIndirizzi.getIndirizzo()))
 				.collect(Collectors.toList());
 
-		List<String> listaIndirizziDestinatari = listaDestinatariDiPosteConDipendentiSuperioriA10.stream()
-				.map(item -> item.getIndirizzo()).collect(Collectors.toList());
-
-		listaIndirizziDestinatari.forEach(i -> System.out.println(i));
+		listaDestinatariDiPosteConDipendentiSuperioriA10.forEach(i -> System.out.println(i));
 
 		getDivisorio();
 
@@ -100,19 +98,18 @@ public class TestGestionePoste {
 		System.out.println(
 				"la lista delle età dei destinatari delle poste che contengano nel campo denominazione la stringa ‘Centrale’ e siano state aperta almeno dal primo gennaio 2000.");
 
-		List<Integer> listaEtaDestinatori = listaPosteDiPaesiMock.stream()
-				.filter(poste -> {
-					try {
-						return poste.getDenominazione().contains("Centrale")
-								&& poste.getDataApertura().after(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2000"));
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						return false;
-					}
-				})
-				.flatMap(poste -> poste.getDestinatari().stream()).map(destinatari -> destinatari.getEta()).collect(Collectors.toList());
-		
+		List<Integer> listaEtaDestinatori = listaPosteDiPaesiMock.stream().filter(poste -> {
+			try {
+				return poste.getDenominazione().contains("Centrale")
+						&& poste.getDataApertura().after(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2000"));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+		}).flatMap(poste -> poste.getDestinatari().stream()).map(destinatari -> destinatari.getEta())
+				.collect(Collectors.toList());
+
 		listaEtaDestinatori.forEach(i -> System.out.println(i));
 
 	}
